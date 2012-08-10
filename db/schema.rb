@@ -44,14 +44,17 @@ ActiveRecord::Schema.define(:version => 20110306115116) do
   end
 
   create_table "domains", :force => true do |t|
-    t.string  "name",                          :null => false
-    t.string  "master",          :limit => 20
-    t.integer "last_check"
-    t.string  "type",            :limit => 6,  :null => false
-    t.integer "notified_serial"
-    t.string  "account",         :limit => 40
-    t.integer "user_id"
-    t.text    "notes"
+    t.string   "name",                                             :null => false
+    t.string   "master",          :limit => 20
+    t.integer  "last_check"
+    t.string   "type",            :limit => 6,                     :null => false
+    t.integer  "notified_serial"
+    t.string   "account",         :limit => 40
+    t.integer  "ttl",                           :default => 86400
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "user_id"
+    t.text     "notes"
   end
 
   add_index "domains", ["name"], :name => "name_index", :unique => true
@@ -92,16 +95,19 @@ ActiveRecord::Schema.define(:version => 20110306115116) do
   end
 
   create_table "records", :force => true do |t|
-    t.integer "domain_id"
-    t.string  "name"
-    t.string  "type",        :limit => 6
-    t.string  "content"
-    t.integer "ttl"
-    t.integer "prio"
-    t.integer "change_date"
+    t.integer  "domain_id"
+    t.string   "name"
+    t.string   "type",        :limit => 6
+    t.string   "content"
+    t.integer  "ttl"
+    t.integer  "prio"
+    t.integer  "change_date"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "records", ["domain_id"], :name => "domain_id"
+  add_index "records", ["name", "type"], :name => "index_records_on_name_and_type"
   add_index "records", ["name", "type"], :name => "nametype_index"
   add_index "records", ["name"], :name => "rec_name_index"
 

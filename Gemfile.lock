@@ -32,8 +32,10 @@ GEM
     acts_as_audited (2.0.0.rc7)
       rails (>= 3.0.3)
     addressable (2.3.1)
+    ansi (1.4.3)
     archive-tar-minitar (0.5.2)
     arel (2.0.10)
+    awesome_print (1.0.2)
     bcrypt-ruby (2.1.4)
     builder (2.1.2)
     capybara (1.1.2)
@@ -170,6 +172,8 @@ PLATFORMS
 DEPENDENCIES
   RedCloth (>= 4.1.1)
   acts_as_audited (= 2.0.0.rc7)
+  ansi
+  awesome_print
   cucumber-rails
   database_cleaner
   devise

@@ -13,6 +13,8 @@ gem 'rabl'
 group :development, :test do
   gem "rspec-rails", "~> 2.6.0"
   gem 'RedCloth', '>= 4.1.1'
+  gem 'awesome_print'
+  gem 'ansi'
 end
 
 group :test do
