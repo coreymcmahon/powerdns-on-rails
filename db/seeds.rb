@@ -81,6 +81,7 @@ RecordTemplate.create!({
 # And add our example.com records
 domain = Domain.find_by_name('example.com') || Domain.new(:name => 'example.com')
 domain.ttl = 84600
+domain.type = 'MASTER'
 domain.primary_ns = 'ns1.example.com'
 domain.contact = 'admin@example.com'
 domain.refresh = 10800
