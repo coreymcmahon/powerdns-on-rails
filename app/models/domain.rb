@@ -59,7 +59,8 @@ class Domain < ActiveRecord::Base
   attr_accessor :zone_template_id, :zone_template_name
 
   # Needed for acts_as_audited (TODO: figure out why this is needed...)
-  #attr_accessible :type
+  attr_accessible :type
+  attr_accessible :name
 
   # Scopes
   scope :user, lambda { |user| user.admin? ? nil : where(:user_id => user.id) }
