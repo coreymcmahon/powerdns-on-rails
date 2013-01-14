@@ -1,5 +1,5 @@
 source 'http://rubygems.org'
-gem 'rails', '3.0.9'
+gem 'rails', '3.0.19'
 
 gem 'mysql2', '~> 0.2.7'
 gem 'haml'
