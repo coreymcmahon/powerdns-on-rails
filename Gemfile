@@ -26,7 +26,7 @@ group :test do
   gem "factory_girl_rails", "~> 3.0"
 
   gem "cucumber-rails"
-  gem 'mocha'
+  gem 'mocha', "~> 0.13"
   gem 'webrat'
   gem 'database_cleaner'
   
