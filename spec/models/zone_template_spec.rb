@@ -50,7 +50,7 @@ describe ZoneTemplate, "when loaded" do
   it "should have a sense of validity" do
     @zone_template.has_soa?.should be_true
 
-    Factory( :zone_template, :name => 'West Coast Data Center' ).has_soa?.should_not be_true
+    FactoryGirl.create( :zone_template, :name => 'West Coast Data Center' ).has_soa?.should_not be_true
   end
 end
 
