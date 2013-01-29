@@ -33,7 +33,7 @@ end
 describe ZoneTemplate, "when loaded" do
 
   before(:each) do
-    @zone_template = Factory( :zone_template )
+    @zone_template = FactoryGirl.create( :zone_template )
     FactoryGirl.create(:template_soa, :zone_template => @zone_template)
   end
 
