@@ -42,7 +42,7 @@ describe ZoneTemplate, "when loaded" do
   end
 
   it "should provide an easy way to build a zone" do
-    zone = @zone_template.build('example.org')
+    zone = @zone_template.build('example.org', 'MASTER')
     zone.should be_a_kind_of( Domain )
     zone.should be_valid
   end
@@ -87,12 +87,12 @@ end
 describe ZoneTemplate, "when used to build a zone" do
 
   before(:each) do
-    @zone_template = Factory( :zone_template )
+    @zone_template = FactoryGirl.create( :zone_template )
     FactoryGirl.create(:template_soa, :zone_template => @zone_template)
     FactoryGirl.create(:template_ns, :zone_template => @zone_template)
     FactoryGirl.create(:template_ns, :content => 'ns2.%ZONE%', :zone_template => @zone_template)
 
-    @domain = @zone_template.build( 'example.org' )
+    @domain = @zone_template.build( 'example.org', 'MASTER' )
   end
 
   it "should create a valid new zone" do
@@ -132,7 +132,7 @@ describe ZoneTemplate, "when used to build a zone for a user" do
     FactoryGirl.create(:template_cname, :zone_template => @zone_template)
     FactoryGirl.create(:template_cname, :name => 'www.%ZONE%', :zone_template => @zone_template)
 
-    @domain = @zone_template.build( 'example.org', @user )
+    @domain = @zone_template.build( 'example.org', 'MASTER', @user )
   end
 
   it "should create a valid new zone" do
