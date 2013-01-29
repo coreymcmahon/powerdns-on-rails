@@ -23,6 +23,9 @@ class Record < ActiveRecord::Base
   # implemented in #SOA
   attr_accessor :primary_ns, :contact, :refresh, :retry, :expire, :minimum
 
+  attr_accessible :domain, :name, :type, :content, :ttl, :prio,
+                  :primary_ns, :contact, :refresh, :retry, :expire, :minimum
+
   before_validation :inherit_attributes_from_domain
   before_save :update_change_date
   after_save  :update_soa_serial
