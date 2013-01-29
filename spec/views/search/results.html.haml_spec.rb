@@ -20,6 +20,7 @@ describe "search/results.html.haml" do
     1.upto(4) do |i|
       zone = Domain.new
       zone.id = i
+      zone.type = :NATIVE
       zone.name = "zone-#{i}.com"
       zone.save( :validate => false ).should be_true
     end
@@ -35,6 +36,7 @@ describe "search/results.html.haml" do
     1.upto(100) do |i|
       zone = Domain.new
       zone.id = i
+      zone.type = :NATIVE
       zone.name = "domain-#{i}.com"
       zone.save( :validate => false ).should be_true
     end
