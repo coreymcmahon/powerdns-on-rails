@@ -38,9 +38,11 @@ class RecordTemplate < ActiveRecord::Base
 
     # duplicate our own attributes, strip out the ones the destination doesn't
     # have (and the id as well)
-    attrs = self.attributes.dup
+    attrs = self.attributes.dup.with_indifferent_access
     attrs.delete_if { |k,_| !record_class.columns.map( &:name ).include?( k ) }
     attrs.delete( :id )
+    attrs.delete( :created_at )
+    attrs.delete( :updated_at )
 
     # parse each attribute, looking for %ZONE%
     unless domain_name.nil?

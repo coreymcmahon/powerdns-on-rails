@@ -48,6 +48,7 @@ class Domain < ActiveRecord::Base
   # used to create an SOA for the domain
   SOA_FIELDS = [ :primary_ns, :contact, :refresh, :retry, :expire, :minimum ]
   SOA_FIELDS.each do |f|
+    attr_accessible f
     attr_accessor f
     validates_presence_of f, :on => :create, :unless => :slave?
   end
@@ -59,8 +60,8 @@ class Domain < ActiveRecord::Base
   attr_accessor :zone_template_id, :zone_template_name
 
   # Needed for acts_as_audited (TODO: figure out why this is needed...)
-  attr_accessible :type
-  attr_accessible :name
+  attr_accessible :name, :master, :type, :ttl,
+                  :zone_template_id, :zone_template_name
 
   # Scopes
   scope :user, lambda { |user| user.admin? ? nil : where(:user_id => user.id) }
