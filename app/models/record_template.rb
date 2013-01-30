@@ -41,6 +41,8 @@ class RecordTemplate < ActiveRecord::Base
     attrs = self.attributes.dup.with_indifferent_access
     attrs.delete_if { |k,_| !record_class.columns.map( &:name ).include?( k ) }
     attrs.delete( :id )
+    attrs.delete( :created_at )
+    attrs.delete( :updated_at )
 
     # parse each attribute, looking for %ZONE%
     unless domain_name.nil?
