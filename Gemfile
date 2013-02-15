@@ -1,9 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.0.19'
-
-# Bundle edge Rails instead:
-# gem 'rails', :git => 'git://github.com/rails/rails.git'
+gem 'rails', '3.0.20'
 
 gem 'mysql2', '~> 0.2.7'
 gem 'haml'
@@ -17,6 +14,8 @@ gem 'rabl'
 group :development, :test do
   gem "rspec-rails", "~> 2.6.0"
   gem 'RedCloth', '>= 4.1.1'
+  gem 'awesome_print'
+  gem 'ansi'
 end
 
 group :test do
@@ -28,7 +27,7 @@ group :test do
   gem "factory_girl_rails", "~> 3.0"
 
   gem "cucumber-rails"
-  gem 'mocha'
+  gem 'mocha', "~> 0.13"
   gem 'webrat'
   gem 'database_cleaner'
   

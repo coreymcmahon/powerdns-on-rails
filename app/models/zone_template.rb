@@ -38,8 +38,8 @@ class ZoneTemplate < ActiveRecord::Base
   #
   # This method will throw exceptions as it encounters errors, and will use a
   # transaction to complete/rollback the operation.
-  def build( domain_name, user = nil )
-    domain = Domain.new( :name => domain_name, :ttl => self.ttl )
+  def build( domain_name, type, user = nil )
+    domain = Domain.new( :name => domain_name, :type => type, :ttl => self.ttl )
     domain.user = user if user.is_a?( User )
 
     self.class.transaction do

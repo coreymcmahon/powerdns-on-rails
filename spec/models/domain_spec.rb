@@ -138,6 +138,7 @@ describe "NATIVE/MASTER", Domain, "when created" do
   it "with additional attributes should create an SOA record" do
     domain = Domain.new
     domain.name = 'example.org'
+    domain.type = 'NATIVE'
     domain.primary_ns = 'ns1.example.org'
     domain.contact = 'admin@example.org'
     domain.refresh = 10800
@@ -153,6 +154,7 @@ describe "NATIVE/MASTER", Domain, "when created" do
   it "with bulk additional attributes should be acceptable" do
     domain = Domain.new(
       :name => 'example.org',
+      :type => 'NATIVE',
       :primary_ns => 'ns1.example.org',
       :contact => 'admin@example.org',
       :refresh => 10800,

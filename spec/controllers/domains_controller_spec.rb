@@ -71,7 +71,7 @@ describe DomainsController, "when creating" do
     FactoryGirl.create(:template_soa, :zone_template => zone_template)
 
     expect {
-      post 'create', :domain => { :name => 'example.org', :zone_template_id => zone_template.id }
+      post 'create', :domain => { :name => 'example.org', :type => 'MASTER', :zone_template_id => zone_template.id }
     }.to change( Domain, :count ).by(1)
 
     assigns(:domain).should_not be_nil
@@ -82,7 +82,7 @@ describe DomainsController, "when creating" do
   it "should be redirected to the zone details after a successful save" do
     expect {
       post 'create', :domain => {
-        :name => 'example.org', :primary_ns => 'ns1.example.org',
+        :name => 'example.org', :type => 'MASTER', :primary_ns => 'ns1.example.org',
         :contact => 'admin@example.org', :refresh => 10800, :retry => 7200,
         :expire => 604800, :minimum => 10800, :zone_template_id => "" }
     }.to change( Domain, :count ).by(1)
@@ -169,7 +169,7 @@ describe DomainsController, "should handle a REST client" do
   it "creating a new zone without a template" do
     expect {
       post 'create', :domain => {
-        :name => 'example.org', :primary_ns => 'ns1.example.org',
+        :name => 'example.org', :type => 'MASTER', :primary_ns => 'ns1.example.org',
         :contact => 'admin@example.org', :refresh => 10800, :retry => 7200,
         :expire => 604800, :minimum => 10800
       }, :format => "xml"
@@ -183,6 +183,7 @@ describe DomainsController, "should handle a REST client" do
     FactoryGirl.create(:template_soa, :zone_template => zt)
 
     post 'create', :domain => { :name => 'example.org',
+      :type => 'MASTER',
       :zone_template_id => zt.id },
       :format => "xml"
 
@@ -194,6 +195,7 @@ describe DomainsController, "should handle a REST client" do
     FactoryGirl.create(:template_soa, :zone_template => zt)
 
     post 'create', :domain => { :name => 'example.org',
+      :type => 'MASTER',
       :zone_template_name => zt.name },
       :format => "xml"
 

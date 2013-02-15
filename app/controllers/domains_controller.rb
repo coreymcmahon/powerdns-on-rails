@@ -46,7 +46,7 @@ class DomainsController < InheritedResources::Base
 
       unless @zone_template.nil?
         begin
-          @domain = @zone_template.build( params[:domain][:name] )
+          @domain = @zone_template.build( params[:domain][:name], params[:domain][:type] )
         rescue ActiveRecord::RecordInvalid => e
           @domain.attach_errors(e)
 
