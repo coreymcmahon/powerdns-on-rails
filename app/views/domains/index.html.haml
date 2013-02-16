@@ -14,6 +14,13 @@
 %h1.underline= t :title_domains_list
 
 %table
+  %tr
+    %td.small= t :label_domain_name
+    %td.small &nbsp;
+    %td.small= t :label_domain_type
+    %td.small &nbsp;
+    %td.small &nbsp;
   = render :partial => 'domain', :collection => @domains
 
 = will_paginate @domains
+= page_entries_info @domains, :model => 'Domain'

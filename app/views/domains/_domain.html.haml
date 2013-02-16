@@ -1,6 +1,9 @@
-%tr
+%tr{ :class => cycle('odd','even') }
   %td
     = link_to domain.name, domain_path( domain )
+  %td &nbsp;
+  %td
+    = domain.type
   %td &nbsp;
   %td
     = link_to info_icon('table_edit.png', 'zone-edit'), edit_domain_path(domain)
