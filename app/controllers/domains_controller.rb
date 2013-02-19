@@ -36,6 +36,8 @@ class DomainsController < InheritedResources::Base
 
     @domain = Domain.find(params[:id])
     @resources = @domain.records.without_soa.paginate(:page => params[:page])
+
+    show!
   end
 
   def create
