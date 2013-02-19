@@ -1,5 +1,6 @@
-%tr[ record, :marker ]
-%tr[ record, :show ]
+- rowclass = cycle('odd','even')
+%tr[ record, :marker ]{ :class => rowclass }
+%tr[ record, :show ]{ :class => rowclass }
   %td{ :width => 250 }= record.shortname
   %td{ :width => 50 }= record.ttl
   %td{ :width => 30 }= record.type
@@ -14,12 +15,12 @@
 
 - unless record.domain.slave?
   - if current_user || current_token.can_change?( record )
-    %tr[ record, :edit ]{ :style => "display: none;" }
+    %tr[ record, :edit ]{ :style => "display: none;", :class => rowclass }
       %td{ :colspan => 7 }
         = form_for( record, :as => :record, :url => domain_record_path(record.domain, record ), :remote => true ) do |f|
           %div[ record, :error ]
             %table.gridwide
-              %tr
+              %tr{ :class => rowclass }
                 %td{ :width => 250 }= f.text_field :shortname, :size => 15
                 %td{ :width => 50 }= f.text_field :ttl, :size => 3
                 %td{ :width => 30 }= record.type

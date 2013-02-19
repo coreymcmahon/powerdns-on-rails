@@ -26,6 +26,10 @@ class Record < ActiveRecord::Base
   attr_accessible :domain, :name, :type, :content, :ttl, :prio,
                   :primary_ns, :contact, :refresh, :retry, :expire, :minimum
 
+  default_scope order('name')
+
+  named_scope :without_soa, :conditions => "type != 'SOA'"
+
   before_validation :inherit_attributes_from_domain
   before_save :update_change_date
   after_save  :update_soa_serial
