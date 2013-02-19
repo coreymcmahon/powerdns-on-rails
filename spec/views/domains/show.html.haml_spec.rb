@@ -8,6 +8,7 @@ describe "domains/show.html.haml" do
       view.stubs(:current_token).returns( nil )
       @domain = FactoryGirl.create(:domain)
       assign(:domain, @domain)
+      assign(:resources, @domain.records.without_soa.paginate(:page => 1))
       assign(:users, User.active_owners)
 
       render :template => "/domains/show.html.haml", :layout => "layouts/application"
@@ -26,6 +27,7 @@ describe "domains/show.html.haml" do
       view.stubs(:current_token).returns( nil )
       @domain = FactoryGirl.create(:domain)
       assign(:domain, @domain)
+      assign(:resources, @domain.records.without_soa.paginate(:page => 1))
       assign(:users, User.active_owners)
 
       render
@@ -56,6 +58,7 @@ describe "domains/show.html.haml" do
       view.stubs(:current_token).returns( nil )
       @domain = FactoryGirl.create(:domain, :user => FactoryGirl.create(:quentin))
       assign(:domain, @domain)
+      assign(:resources, @domain.records.without_soa.paginate(:page => 1))
       assign(:users, User.active_owners)
 
       render
@@ -79,6 +82,7 @@ describe "domains/show.html.haml" do
 
       @domain = FactoryGirl.create(:domain, :user => quentin)
       assign(:domain, @domain)
+      assign(:resources, @domain.records.without_soa.paginate(:page => 1))
 
       render
     end
@@ -113,6 +117,7 @@ describe "domains/show.html.haml" do
 
       @domain = FactoryGirl.create(:domain, :type => 'SLAVE', :master => '127.0.0.1')
       assign(:domain, @domain)
+      assign(:resources, @domain.records.without_soa.paginate(:page => 1))
       assign(:users, User.active_owners)
 
       render
@@ -141,6 +146,7 @@ describe "domains/show.html.haml" do
       @admin = FactoryGirl.create(:admin)
       @domain = FactoryGirl.create(:domain)
       assign(:domain, @domain)
+      assign(:resources, @domain.records.without_soa.paginate(:page => 1))
 
       view.stubs(:current_token).returns( FactoryGirl.create(:auth_token, :user => @admin, :domain => @domain) )
       view.stubs(:current_user).returns( nil )
