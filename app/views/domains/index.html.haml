@@ -15,11 +15,12 @@
 
 %table
   %tr
-    %td.small= t :label_domain_name
-    %td.small &nbsp;
-    %td.small= t :label_domain_type
-    %td.small &nbsp;
-    %td.small &nbsp;
+    = form_tag( { :controller => :domains, :action => :index }, { :method => :get } ) do
+      %td.small= text_field_tag :filterdomain, nil, :placeholder => t( :label_domain_name ), :class => 'gridWide'
+      %td.small &nbsp;
+      %td.small= select_tag :filtertype, "<option>NATIVE</option><option>MASTER</option><option>SLAVE</option>".html_safe, :include_blank => t( :label_domain_type ), :class => 'gridWide'
+      %td.small &nbsp;
+      %td.small= image_submit_tag( "magnifier.png", :class => 'searchButton', :alt => t( :generic_search ) )
   = render :partial => 'domain', :collection => @domains
 
 = will_paginate @domains
