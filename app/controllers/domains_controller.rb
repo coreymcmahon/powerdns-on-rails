@@ -9,7 +9,16 @@ class DomainsController < InheritedResources::Base
   protected
 
   def collection
-    @domains = Domain.user( current_user ).paginate :page => params[:page]
+    @domains = Domain.user( current_user )
+    if (params.has_key?(:filterdomain) and not params[:filterdomain].chomp.blank?)
+      @filterdomain = params[:filterdomain].chomp
+      @domains = @domains.where('name LIKE ?', "%#{@filterdomain}%")
+    end
+    if (params.has_key?(:filtertype) and not params[:filtertype].chomp.blank?)
+      @filtertype = params[:filtertype].chomp
+      @domains = @domains.where('type = ?', @filtertype)
+    end
+    @domains = @domains.paginate :page => params[:page]
   end
 
   def resource

@@ -16,9 +16,15 @@
 %table
   %tr
     = form_tag( { :controller => :domains, :action => :index }, { :method => :get } ) do
-      %td.small= text_field_tag :filterdomain, nil, :placeholder => t( :label_domain_name ), :class => 'gridWide'
+      - if defined? @filterdomain
+        %td.small= text_field_tag :filterdomain, @filterdomain.html_safe, :class => 'gridWide'
+      - else
+        %td.small= text_field_tag :filterdomain, nil, :placeholder => t( :label_domain_name ), :class => 'gridWide'
       %td.small &nbsp;
-      %td.small= select_tag :filtertype, "<option>NATIVE</option><option>MASTER</option><option>SLAVE</option>".html_safe, :include_blank => t( :label_domain_type ), :class => 'gridWide'
+      - if defined? @filtertype
+        %td.small= select_tag :filtertype, options_for_select(["NATIVE", "MASTER", "SLAVE"], @filtertype), :include_blank => t( :label_domain_type ), :class => 'gridWide'
+      - else
+        %td.small= select_tag :filtertype, options_for_select(["NATIVE", "MASTER", "SLAVE"]), :include_blank => t( :label_domain_type ), :class => 'gridWide'
       %td.small &nbsp;
       %td.small= image_submit_tag( "magnifier.png", :class => 'searchButton', :alt => t( :generic_search ) )
   = render :partial => 'domain', :collection => @domains
