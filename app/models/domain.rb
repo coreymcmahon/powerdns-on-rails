@@ -81,6 +81,10 @@ class Domain < ActiveRecord::Base
   def to_xml(options={})
     super(options.merge(:include => :records))
   end
+
+  def to_json(options={})
+    super(options.merge(:include => :records))
+  end
   
   # Are we a slave domain
   def slave?
