@@ -111,7 +111,7 @@
       %tr
         %td.small= text_field_tag :filterhost, (defined? @filterhost) ? @filterhost.html_safe : nil, :placeholder => t( :label_domain_record_host ), :class => 'gridWide small'
         %td.small= t :label_domain_record_ttl
-        %td.small= select_tag :filtertype, options_for_select(["A", "AAAA", "NS"], (defined? @filtertype) ? @filtertype : nil), :include_blank => t( :label_domain_record_type ), :class => 'gridWide small'
+        %td.small= select_tag :filtertype, options_for_select(Record.record_types, (defined? @filtertype) ? @filtertype : nil), :include_blank => t( :label_domain_record_type ), :class => 'gridWide small'
         %td.small= t :label_domain_record_priority
         %td.small= text_field_tag :filterdata, (defined? @filterdata) ? @filterdata.html_safe : nil, :placeholder => t( :label_domain_record_data ), :class => 'gridWide small'
         %td.small
