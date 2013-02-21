@@ -107,7 +107,7 @@
 #domain-records.padded
   %h2.underline= t :title_domian_rrs
   %table.gridwide#record-table
-    = form_tag( { :controller => :domains, :action => :show }, { :method => :get } ) do
+    = form_tag( domain_path( @domain ), { :method => :get } ) do
       %tr
         %td.small= text_field_tag :filterhost, (defined? @filterhost) ? @filterhost.html_safe : nil, :placeholder => t( :label_domain_record_host ), :class => 'gridWide small'
         %td.small= t :label_domain_record_ttl
