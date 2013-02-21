@@ -48,17 +48,17 @@ class DomainsController < InheritedResources::Base
 
     if (params.has_key?(:filterhost) and not params[:filterhost].chomp.blank?)
       @filterhost = params[:filterhost].chomp
-      # @domains = @domains.where('type = ?', @filtertype)
+      @resources = @resources.where('name LIKE ?', "%#{@filterhost}%")
     end
 
     if (params.has_key?(:filtertype) and not params[:filtertype].chomp.blank?)
       @filtertype = params[:filtertype].chomp
-      # @domains = @domains.where('type = ?', @filtertype)
+      @resources = @resources.where('type = ?', @filtertype)
     end
 
     if (params.has_key?(:filterdata) and not params[:filterdata].chomp.blank?)
       @filterdata = params[:filterdata].chomp
-      # @domains = @domains.where('type = ?', @filtertype)
+      @resources = @resources.where('content LIKE ?', "%#{@filterdata}%")
     end
 
     @resources = @resources.paginate(:page => params[:page])
