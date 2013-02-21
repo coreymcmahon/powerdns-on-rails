@@ -44,7 +44,24 @@ class DomainsController < InheritedResources::Base
     end
 
     @domain = Domain.find(params[:id])
-    @resources = @domain.records.without_soa.paginate(:page => params[:page])
+    @resources = @domain.records.without_soa
+
+    if (params.has_key?(:filterhost) and not params[:filterhost].chomp.blank?)
+      @filterhost = params[:filterhost].chomp
+      # @domains = @domains.where('type = ?', @filtertype)
+    end
+
+    if (params.has_key?(:filtertype) and not params[:filtertype].chomp.blank?)
+      @filtertype = params[:filtertype].chomp
+      # @domains = @domains.where('type = ?', @filtertype)
+    end
+
+    if (params.has_key?(:filterdata) and not params[:filterdata].chomp.blank?)
+      @filterdata = params[:filterdata].chomp
+      # @domains = @domains.where('type = ?', @filtertype)
+    end
+
+    @resources = @resources.paginate(:page => params[:page])
 
     show!
   end
