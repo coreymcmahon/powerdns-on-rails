@@ -48,7 +48,7 @@ class DomainsController < InheritedResources::Base
 
     if (params.has_key?(:filterhost) and not params[:filterhost].chomp.blank?)
       @filterhost = params[:filterhost].chomp
-      @resources = @resources.where('name LIKE ?', "%#{@filterhost}%")
+      @resources = @resources.where('name LIKE ?', "%#{@filterhost}%#{@domain.name}")
     end
 
     if (params.has_key?(:filtertype) and not params[:filtertype].chomp.blank?)
