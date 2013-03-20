@@ -1,5 +1,7 @@
 h1. Important update
 
+!https://api.travis-ci.org/bigcommerce/powerdns-on-rails.png!
+
 *The current master branch of the PowerDNS on Rails project is deprecated. I'm busy finishing off the "features/rails3":https://github.com/kennethkalmer/powerdns-on-rails/tree/feature%2Frails3 branch which will be merged into master shortly and will be the new base of future development. This project will remain actively maintained once again.*
 
 Thanks for your support and understanding.
