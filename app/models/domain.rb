@@ -32,7 +32,7 @@ class Domain < ActiveRecord::Base
 
   validates_presence_of :name
   validates_uniqueness_of :name
-  validates_inclusion_of :type, :in => %w(NATIVE MASTER SLAVE), :message => "must be one of NATIVE, MASTER, or SLAVE"
+  validates_inclusion_of :type, :in => %w(NATIVE MASTER SLAVE SUPERSLAVE), :message => "must be one of NATIVE, MASTER, SLAVE, or SUPERSLAVE"
 
   validates_presence_of :master, :if => :slave?
   validates_format_of :master, :if => :slave?,
@@ -67,6 +67,10 @@ class Domain < ActiveRecord::Base
   scope :user, lambda { |user| user.admin? ? nil : where(:user_id => user.id) }
   default_scope order('name')
 
+  # Known domain types
+  @@domain_types = ['NATIVE', 'MASTER', 'SLAVE', 'SUPERSLAVE']
+  cattr_reader :domain_types
+
   class << self
 
     def search( string, page, user = nil )
@@ -81,10 +85,14 @@ class Domain < ActiveRecord::Base
   def to_xml(options={})
     super(options.merge(:include => :records))
   end
+
+  def to_json(options={})
+    super(options.merge(:include => :records))
+  end
   
   # Are we a slave domain
   def slave?
-    self.type == 'SLAVE'
+    self.type == 'SLAVE' or self.type == 'SUPERSLAVE'
   end
 
   # return the records, excluding the SOA record

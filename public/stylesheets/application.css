@@ -188,3 +188,11 @@ ul.start li {
 tr.odd {
   background-color: #f0f0f0;
 }
+
+input.searchButton {
+  border: 0px;
+}
+
+input.gridWide {
+  width: 98%;
+}

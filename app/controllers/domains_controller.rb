@@ -9,7 +9,16 @@ class DomainsController < InheritedResources::Base
   protected
 
   def collection
-    @domains = Domain.user( current_user ).paginate :page => params[:page]
+    @domains = Domain.user( current_user )
+    if (params.has_key?(:filterdomain) and not params[:filterdomain].chomp.blank?)
+      @filterdomain = params[:filterdomain].chomp
+      @domains = @domains.where('name LIKE ?', "%#{@filterdomain}%")
+    end
+    if (params.has_key?(:filtertype) and not params[:filtertype].chomp.blank?)
+      @filtertype = params[:filtertype].chomp
+      @domains = @domains.where('type = ?', @filtertype)
+    end
+    @domains = @domains.paginate :page => params[:page]
   end
 
   def resource
@@ -35,7 +44,24 @@ class DomainsController < InheritedResources::Base
     end
 
     @domain = Domain.find(params[:id])
-    @resources = @domain.records.without_soa.paginate(:page => params[:page])
+    @resources = @domain.records.without_soa
+
+    if (params.has_key?(:filterhost) and not params[:filterhost].chomp.blank?)
+      @filterhost = params[:filterhost].chomp
+      @resources = @resources.where('name LIKE ?', "%#{@filterhost}%#{@domain.name}")
+    end
+
+    if (params.has_key?(:filtertype) and not params[:filtertype].chomp.blank?)
+      @filtertype = params[:filtertype].chomp
+      @resources = @resources.where('type = ?', @filtertype)
+    end
+
+    if (params.has_key?(:filterdata) and not params[:filterdata].chomp.blank?)
+      @filterdata = params[:filterdata].chomp
+      @resources = @resources.where('content LIKE ?', "%#{@filterdata}%")
+    end
+
+    @resources = @resources.paginate(:page => params[:page])
 
     show!
   end
