@@ -3,10 +3,6 @@ require 'spec_helper'
 describe "New 'untyped'", Domain do
   subject { Domain.new }
 
-  it "should be NATIVE by default" do
-    subject.type.should == 'NATIVE'
-  end
-
   it "should not accept rubbish types" do
     subject.type = 'DOMINANCE'
     subject.should have(1).error_on(:type)
@@ -28,10 +24,6 @@ describe "New MASTER/NATIVE", Domain do
 
   it "should bail out on missing SOA fields" do
     subject.should have(1).error_on( :primary_ns )
-  end
-
-  it "should be NATIVE by default" do
-    subject.type.should eql('NATIVE')
   end
 
   it "should not require a MASTER" do
