@@ -84,6 +84,11 @@ class RecordsController < InheritedResources::Base
   def update_soa
     @domain = parent
     @domain.soa_record.update_attributes( params[:soa] )
+    respond_to do |format|
+      format.html { render "update_soa.js.erb" }
+      format.js { render "update_soa.js.erb" }
+      format.json { render :json => @domain.soa_record }
+    end
   end
 
 end
